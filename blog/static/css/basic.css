@@ -1,0 +1,15 @@
+body {
+    background-image: url('/static/assets/main-backImage.jpg');
+    background-size: cover; 
+}
+
+.mainbody {
+    min-height: 90vh;
+}
+
+.footer {}
+
+    .footer-link {
+        text-decoration: none;
+        color: black;
+    }

@@ -1,0 +1,27 @@
+{% extends './base.html' %}
+
+{% block import %}
+    <link rel="stylesheet" href='/static/css/detail.css'></link>
+    <script src='/static/js/detail.js'></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="post">
+            <div class="post-head">
+                <h1>{{blog.title}}</h1>
+                <p>{{blog.pup_date}}</p>
+                <hr />
+            </div>
+            <div class="post-body">
+                <p>{{blog.body}}</p>
+            </div>
+             <hr />
+            <div class="post-footer text-right">
+                posted by Junghun Lee
+                <br />
+                <a href="/">Go to main</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
