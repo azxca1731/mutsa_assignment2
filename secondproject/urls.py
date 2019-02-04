@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', blog.views.home, name="home"),
     path('blog/<int:blog_id>', blog.views.detail, name="detail"),
+    path('write', blog.views.write, name="write"),
+    path('blog/create', blog.views.create, name="create")
 ]

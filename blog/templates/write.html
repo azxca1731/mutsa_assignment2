@@ -1,0 +1,33 @@
+{% extends './base.html' %}
+
+{% block import %}
+    <link rel="stylesheet" href='/static/css/write.css'></link>
+    <script src='/static/js/detail.js'></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="post">
+            <form action="{% url 'create' %}" method="POST">{% csrf_token %}
+            <div class="post-head">
+                <div class="form-group d-flex">
+                    <label for="title" class="pr-2 post-label">Title:</label>
+                    <input class="input form-control" type="text" id="title" name="title"/>
+                </div>
+            </div>
+            <div class="post-body">
+                <div class="form-group mt-2">
+                    <label for="body">Body:</label>
+                    <textarea class="form-control" rows="16" type="text" id="body" name="body"></textarea>
+                </div>
+            </div>
+             <hr />
+            <div class="post-footer text-right">
+                <input class="btn btn-secondary" type="submit" value="Submit">
+                <br />
+                <a href="/" class="pr-1">Go to main</a>
+            </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
