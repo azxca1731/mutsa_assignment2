@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <div class="card-cloumns" id="allpost">
-        {% for blog in blogs.all%}
+        {% for blog in posts %}
         <div class="card border-secondary mb-3">
             <div class="card-header bg-transparent border-secondary">Post</div>
             <div class="card-body">
@@ -19,10 +19,31 @@
             <div class="card-footer bg-transparent border-secondary"><a href="{% url 'detail' blog.id %}">More</a></div>
         </div>
         {% endfor %}
-        <div class="card-cloumns" style="display: none;" id="selectedpost">
-        </div>
+        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+            <ul class="pagination">
+                {% if 1 == current %}
+                    {{pages.lenght}}
+                    <li class="page-item disabled"><a class="page-link" href="#"><</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{current|add:-1}}"><</a></li>
+                {% endif %}
+                {% for count in pages %}
+                    {% if current == count %}
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{count}}">{{count}}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{count}}">{{count}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if pages|length == current %}
+                    {{pages.lenght}}
+                    <li class="page-item disabled"><a class="page-link" href="#">></a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{current|add:1}}">></a></li>
+                {% endif %}
+                
+            </ul>
+        </nav>
     </div>
-    <script>
-        var data = {};
-    </script>
 {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div style="height:150px"></div>
+    <div class="mr-auto ml-auto mt-4" style="width: 500px">
+        <form class="text-center" method = "POST" action="{% url 'signup' %}" style="color:white">
+            {% csrf_token %}
+            <h2>Welcome to Nogada Develop Blog</h2>
+            <h7 style="color: red">this blog is so Awesome and you must get import information</h7>
+            <div class="p-2"></div>
+            <div class="p-2">
+                <h4 class="text-left">Email</h4>
+                <input placeholder="input your email" type="email" class="form-control" name="username" value=""></input>
+            </div>
+            <div class="p-2">
+                <h4 class="text-left">Password</h4>
+                <input placeholder="input your password on it!" type="password" class="form-control" name="password1" value=""></input>
+            </div>
+            <div class="p-2">
+                <h4 class="text-left">Password Confirm</h4>
+                <input placeholder="input your password again" type="password" class="form-control" name="password2" value=""></input>
+            </div>
+            <input class="btn btn-secondary text-center m-3" type="submit"></input>
+        </form>
+    </div>
+</div>
+{% endblock content %}
