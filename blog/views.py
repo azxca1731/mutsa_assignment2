@@ -15,6 +15,7 @@ def home(request):
         posts = paginator.page(page)
     except PageNotAnInteger:
         posts = paginator.page(1)
+        page = 1
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
     print(page)
