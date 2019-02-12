@@ -28,8 +28,8 @@ def signup(request):
         return render(request, 'signup.html')
 
 def logout(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
         auth.logout(request)
         return redirect('home')
     else:
-        return render(request, 'login.html')
+        return render(request, 'login.html',{"error": "You can't not logout! cuz you're not in session!"})

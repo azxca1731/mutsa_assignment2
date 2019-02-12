@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
     <a class="navbar-brand" href="/">Nogada Develop Blog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-hover="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     
@@ -23,7 +23,9 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul class="navbar-nav ml-auto mr-2 mt-2 mt-lg-0">
             <li class="nav-item ml-auto">
-                <a class="nav-link" href="{% url 'write' %}">Write</a>
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'write' %}">Write</a>
+                {% endif %}
             </li>
         </ul>
         <ul class="navbar-nav mr-2 mt-2 mt-lg-0">
@@ -36,19 +38,27 @@
             <button class="btn btn-outline-secondary my-2 my-sm-0 ml-auto" type="submit">Search</button>
         </form>
         <div class="dropdown d-flex justify-content-end">
-            <button 
-                class="btn btn-outline-secondary dropdown-toggle ml-2" 
-                type="button" 
-                id="dropdownMenuButton" 
+            <div 
+                class="ml-2 dropdown-toggle btn btn-outline-secondary" 
                 data-toggle="dropdown" 
+                role="button" 
                 aria-haspopup="true" 
                 aria-expanded="false"
-            />
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{% url 'login' %}">Log in</a>
-                <a class="dropdown-item" href="{% url 'signup' %}">Sign up</a>
-                <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+            >
+                <span class="caret"></span>
             </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+                {% if user.is_authenticated %}
+                    <div class="text-muted dropdown-item">Hello!</div>
+                    <div class="text-muted dropdown-item">{{user.username}}</div>
+                    <div class="dropdown-divider"></div>
+                    <a class="text-muted dropdown-item" href="{% url 'logout' %}">Log out</a>
+                {% else %}
+                    <a class="text-muted dropdown-item" href="{% url 'login' %}">Log in</a>
+                    <a class="text-muted dropdown-item" href="{% url 'signup' %}">Sign up</a> 
+                {% endif %}
+                
+            </ul>
         </div>
     </div>
     </nav>
