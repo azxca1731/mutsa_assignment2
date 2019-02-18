@@ -48,7 +48,6 @@ def create(request):
 def comment(request, blog_id):
     if request.method == 'POST':
         if request.user.is_authenticated:
-            print(request.POST)
             comment = Comment()
             comment.comment = request.POST['inputComment']
             comment.pup_date = timezone.datetime.now()
