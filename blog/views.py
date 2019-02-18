@@ -1,15 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Blog
+from .models import Blog, Comment
 from django.urls import reverse
 from django.conf import settings
+from django.http import HttpResponseNotFound
 
 # Create your views here.
 
 
 def home(request):
-    print(request.user.is_authenticated)
     blogs = Blog.objects
     blog_list = Blog.objects.all()
     paginator = Paginator(blog_list, 4)
@@ -26,21 +26,37 @@ def home(request):
 
 def detail(request, blog_id):
     blog_detail = get_object_or_404(Blog, pk=blog_id)
-    return render(request, 'detail.html', {'blog': blog_detail})
+    postComment = Comment.objects.filter(blog=blog_id)
+    return render(request, 'detail.html', {'blog': blog_detail, 'comments': postComment, 'user': request.user, 'blog_id': str(blog_id)})
 
 
 def write(request):
     if request.user.is_authenticated:
-        return redirect('login')
+        return render(request, 'write.html',{'user': request.user})   
     else:
-        return render(request, 'write.html')
-
+        return redirect('login')
 
 def create(request):
     blog = Blog()
     blog.title = request.POST['title']
     blog.body = request.POST['body']
-    print(request.user.username)
     blog.pup_date = timezone.datetime.now()
+    blog.author = request.user
     blog.save()
     return redirect('/blog/'+str(blog.id))
+
+def comment(request, blog_id):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            print(request.POST)
+            comment = Comment()
+            comment.comment = request.POST['inputComment']
+            comment.pup_date = timezone.datetime.now()
+            comment.author = request.user
+            comment.blog = Blog.objects.get(id=blog_id)
+            comment.save()
+            return redirect('/blog/'+str(blog_id))
+        else:
+            return redirect('login')
+    else:
+        return HttpResponseNotFound("없는 페이지 입니다.")

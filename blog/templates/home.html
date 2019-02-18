@@ -9,15 +9,15 @@
     <div class="container">
         <div class="card-cloumns" id="allpost">
         {% for blog in posts %}
-        <div class="card border-secondary mb-3">
-            <div class="card-header bg-transparent border-secondary">Post</div>
-            <div class="card-body">
-                <h5 class="card-title">{{blog.title}}</h5>
-                <h5 class="text-mute postcard-datetime">{{blog.pup_date}}</h5>
-                <p class="card-text">{{blog.summary}}</p>
+            <div class="card border-secondary mb-3">
+                <div class="card-header bg-transparent border-secondary">Post</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{blog.title}}</h5>
+                    <h5 class="text-mute postcard-datetime">{{blog.author}} - {{blog.pup_date}}</h5>
+                    <p class="card-text">{{blog.summary}}</p>
+                </div>
+                <div class="card-footer bg-transparent border-secondary"><a href="{% url 'detail' blog.id %}">More</a></div>
             </div>
-            <div class="card-footer bg-transparent border-secondary"><a href="{% url 'detail' blog.id %}">More</a></div>
-        </div>
         {% endfor %}
         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
             <ul class="pagination">
@@ -42,7 +42,6 @@
                 {% else %}
                     <li class="page-item"><a class="page-link" href="?page={{current|add:1}}">></a></li>
                 {% endif %}
-                
             </ul>
         </nav>
     </div>
