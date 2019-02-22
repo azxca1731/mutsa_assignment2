@@ -34,7 +34,8 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method = "POST" action="{% url 'search' %}">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
             <button class="btn btn-outline-secondary my-2 my-sm-0 ml-auto" type="submit">Search</button>
         </form>
         <div class="dropdown d-flex justify-content-end">

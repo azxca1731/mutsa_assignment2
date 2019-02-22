@@ -59,3 +59,11 @@ def comment(request, blog_id):
             return redirect('login')
     else:
         return HttpResponseNotFound("없는 페이지 입니다.")
+
+def search(request):
+    if request.method == 'POST':
+        blogList = Blog.objects.filter(title__icontains=request.POST['search'])
+        print(blogList)
+        return render(request, 'search.html', {'posts': blogList, 'user': request.user })
+    else:
+        return HttpResponseNotFound("없는 페이지 입니다.")
