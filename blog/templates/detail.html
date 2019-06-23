@@ -23,22 +23,5 @@
                 <a href="/">Go to main</a>
             </div>
         </div>
-        <div class="comment mt-2 mb-2">
-            {% for comment in comments %}
-                <div class="card border-secondary mb-3">
-                    <div class="card-body">
-                        <h5 class="card-text">{{comment.comment}}</h5>
-                        <p class="text-mute postcard-datetime">{{comment.author}} - {{comment.pup_date}}</p>
-                    </div>
-                </div>
-            {% endfor %}
-            <form action="{% url 'comment' blog_id %}" method="POST">{% csrf_token %}
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="덧글을 남겨주세요!" name="inputComment" id="inputComment" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <input class="btn btn-outline-secondary" type="submit" id="button-addon2" value="덧글 쓰기"></input>
-                    </div>
-                </div>
-            </form>
     </div>
 {% endblock %}

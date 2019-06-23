@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Blog, Comment
+from .models import Blog
 from django.urls import reverse
 from django.conf import settings
 from django.http import HttpResponseNotFound
@@ -26,8 +26,7 @@ def home(request):
 
 def detail(request, blog_id):
     blog_detail = get_object_or_404(Blog, pk=blog_id)
-    postComment = Comment.objects.filter(blog=blog_id)
-    return render(request, 'detail.html', {'blog': blog_detail, 'comments': postComment, 'user': request.user, 'blog_id': str(blog_id)})
+    return render(request, 'detail.html', {'blog': blog_detail, 'user': request.user, 'blog_id': str(blog_id)})
 
 
 def write(request):
@@ -44,21 +43,6 @@ def create(request):
     blog.author = request.user
     blog.save()
     return redirect('/blog/'+str(blog.id))
-
-def comment(request, blog_id):
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            comment = Comment()
-            comment.comment = request.POST['inputComment']
-            comment.pup_date = timezone.datetime.now()
-            comment.author = request.user
-            comment.blog = Blog.objects.get(id=blog_id)
-            comment.save()
-            return redirect('/blog/'+str(blog_id))
-        else:
-            return redirect('login')
-    else:
-        return HttpResponseNotFound("없는 페이지 입니다.")
 
 def search(request):
     if request.method == 'POST':
